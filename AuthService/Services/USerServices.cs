@@ -5,6 +5,7 @@ using JwTNameService;
 using LogInDTONameSpace;
 using MessageServiceNamespace;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Registration_Namespace;
 using System.Threading.Tasks;
@@ -30,7 +31,7 @@ namespace USerServices_namespace
 			_messageService = messageService;
 			_jwt = jwt;
 		}
-		public async Task<string> Login(LoginDTO logins)
+		public async Task<ActionResult> Login(LoginDTO logins)
 		{
 			var user = _dbConn.users.FirstOrDefault(e => e.UserName == logins.username);
 			if (user == null) return null; // Return null or handle as appropriate
@@ -43,7 +44,7 @@ namespace USerServices_namespace
 			var token = _jwt.GenerateToken(user);
 
 			Console.WriteLine("Login Successfully");
-			return token;
+			return new OkObjectResult(new { msg = "Login successfully", usertoker = token });
 		}
 		public async Task<bool> RegisterUser(RegisterDTO registerDTO)
 		{
