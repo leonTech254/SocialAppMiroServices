@@ -62,7 +62,9 @@ namespace USerServices_namespace
 			{
 
 				//=============================ADD USE TO THE QUEUE===========================================
+				Console.WriteLine("Addeding user to the Queue");
 				await _messageService.AddUSerToQueue(registerDTO);
+				Console.WriteLine("Added user to the Queue");
 				return true;
 			}
 			else

@@ -13,16 +13,15 @@ namespace EmailService.Services
 	public class AzureServices : BackgroundService
 	{
 		private readonly IConfiguration _configuration;
-
 		private readonly MailService _mailService;
 
-		public AzureServices(IConfiguration configuration,MailService mailService)
+		public AzureServices(IConfiguration configuration, MailService mailService)
 		{
 			_configuration = configuration;
 			_mailService = mailService;
 		}
 
-		protected override async Task<String> ExecuteAsync(CancellationToken stoppingToken)
+		protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 		{
 			string connectionString = _configuration.GetSection("AzureServices:connectionString").Value;
 			string queueName = _configuration.GetSection("AzureServices:qName").Value;
@@ -32,32 +31,40 @@ namespace EmailService.Services
 				// Create a receiver for the queue
 				ServiceBusReceiver receiver = client.CreateReceiver(queueName);
 
-				// Receive messages
-				ServiceBusReceivedMessage receivedMessage = await receiver.ReceiveMessageAsync();
-
-				if (receivedMessage != null)
+				while (!stoppingToken.IsCancellationRequested)
 				{
-					string messageBody = Encoding.UTF8.GetString(receivedMessage.Body);
-					Console.WriteLine($"Received a message from the queue: {messageBody}");
+					try
+					{
+						// Receive messages
+						ServiceBusReceivedMessage receivedMessage = await receiver.ReceiveMessageAsync();
 
-					// Complete the message to remove it from the queue
-					await receiver.CompleteMessageAsync(receivedMessage);
-					await _mailService.SendWelcomeMessage(GetUsernameEmail(messageBody));
-					
-					return messageBody;
-				}
-				else
-				{
-					Console.WriteLine("No messages available in the queue.");
-					return null;
+						if (receivedMessage != null)
+						{
+							string messageBody = Encoding.UTF8.GetString(receivedMessage.Body);
+							Console.WriteLine($"Received a message from the queue: {messageBody}");
+
+							// Complete the message to remove it from the queue
+							await receiver.CompleteMessageAsync(receivedMessage);
+							await _mailService.SendWelcomeMessage(GetUsernameEmail(messageBody));
+						}
+						else
+						{
+							Console.WriteLine("No messages available in the queue. Waiting for new messages...");
+						}
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine($"Error receiving message: {ex.Message}");
+					}
+
+					// Add a delay before checking for new messages again
+					await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
 				}
 			}
 		}
 
-
 		public UserDetailsDTO? GetUsernameEmail(String userDetails)
 		{
-
 			UserDetailsDTO UserData = JsonConvert.DeserializeObject<UserDetailsDTO>(userDetails);
 			// Getting useremail
 			try
@@ -66,16 +73,11 @@ namespace EmailService.Services
 				String Username = UserData.username;
 				return UserData;
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				Console.WriteLine(e.ToString());
 				return null;
-
 			}
-
-
-
 		}
-
 	}
 }
