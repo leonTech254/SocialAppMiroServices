@@ -23,7 +23,6 @@ namespace EmailService.Services
 			Console.WriteLine($"{useremail} {username}");
 			try
 			{
-				// Set up the email message
 				var message = new MimeMessage();
 				message.From.Add(new MailboxAddress("SocialApp", "leonteqsec@gmail.com"));
 				message.To.Add(new MailboxAddress(username, useremail));
@@ -33,7 +32,6 @@ namespace EmailService.Services
 					Text = "This is the body of the email.",
 				};
 
-				// Read SMTP configuration from appsettings.json or other configuration source
 				var smtpHost = _configuration["SmtpConfig:Host"];
 				var smtpPort = int.Parse(_configuration["SmtpConfig:Port"]);
 				var smtpUser = _configuration["SmtpConfig:Username"];
