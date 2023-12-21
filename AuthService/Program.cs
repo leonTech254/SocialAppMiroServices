@@ -13,6 +13,10 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using USerModelNamespace;
 using policyConfigurations_pnamespace;
+using USerServices_namespace;
+using Registration_Namespace;
+using Azure.Messaging.ServiceBus;
+using MessageServiceNamespace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,8 @@ builder.Services.AddDbContext<DbConn>(options => options.UseSqlServer(builder.Co
 
 //==============================REGISTERING SERVICES=============================================
 builder.Services.AddScoped<Jwt>();
+builder.Services.AddScoped<USUSerServiceser>();
+builder.Services.AddScoped<MessageService>();
 
 //=========================AUTHORIZATION=========================================================
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

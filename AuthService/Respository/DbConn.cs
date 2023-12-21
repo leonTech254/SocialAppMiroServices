@@ -8,6 +8,8 @@ namespace DatabaseConnection
 	{
 		public DbConn(DbContextOptions<DbConn> options): base(options)
 		{
+			
 		}
+		public DbSet<UserModel> users { get; set; }
 	}
 }

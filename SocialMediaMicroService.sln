@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{A703AD60-FFD8-4FCF-9A9C-2E48EFAFCC94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommentService", "CommentService\CommentService.csproj", "{E04C0F7E-6F9C-489B-AB78-75F74D677432}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService", "EmailService\EmailService.csproj", "{314F7D8F-68DB-41B1-82BF-FDC4B82A6BA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostService", "PostService\PostService.csproj", "{8266B05A-0890-48C1-B0B5-F9AA4AC5883B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A703AD60-FFD8-4FCF-9A9C-2E48EFAFCC94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A703AD60-FFD8-4FCF-9A9C-2E48EFAFCC94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A703AD60-FFD8-4FCF-9A9C-2E48EFAFCC94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A703AD60-FFD8-4FCF-9A9C-2E48EFAFCC94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E04C0F7E-6F9C-489B-AB78-75F74D677432}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E04C0F7E-6F9C-489B-AB78-75F74D677432}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E04C0F7E-6F9C-489B-AB78-75F74D677432}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E04C0F7E-6F9C-489B-AB78-75F74D677432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314F7D8F-68DB-41B1-82BF-FDC4B82A6BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314F7D8F-68DB-41B1-82BF-FDC4B82A6BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314F7D8F-68DB-41B1-82BF-FDC4B82A6BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314F7D8F-68DB-41B1-82BF-FDC4B82A6BA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8266B05A-0890-48C1-B0B5-F9AA4AC5883B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8266B05A-0890-48C1-B0B5-F9AA4AC5883B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8266B05A-0890-48C1-B0B5-F9AA4AC5883B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8266B05A-0890-48C1-B0B5-F9AA4AC5883B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
