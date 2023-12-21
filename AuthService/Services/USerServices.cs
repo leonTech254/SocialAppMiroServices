@@ -54,7 +54,6 @@ namespace USerServices_namespace
 				Firstname = registerDTO.Firstname,
 				UserName = registerDTO.username
 				
-				// Add other properties as needed
 			};
 
 			var result = await _userManager.CreateAsync(userModel, registerDTO.Password);
