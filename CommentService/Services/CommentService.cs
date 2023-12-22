@@ -30,7 +30,7 @@ namespace CommentSerives_namesapace
 		{
 			try
 			{
-				string apiUrl = "https://localhost:7284"; 
+				string apiUrl = $"https://localhost:7284/api/v1/post//get/postid/{postId}"; 
 				
 				string commentJson = JsonConvert.SerializeObject(comment);
 

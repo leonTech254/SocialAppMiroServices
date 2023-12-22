@@ -15,13 +15,13 @@ namespace CommentController_nameSpace
 	}
 
 		[HttpPost("add/comment/post/{id}")]
-		public ActionResult AddComment([FromBody] Comment comments,String id)
+		public  async Task<ActionResult> AddComment([FromBody] Comment comments,String id)
 		{
 			string jwtToken = HttpContext.Request.Headers["Authorization"];
 			if (jwtToken != null)
 			{
 				String token = jwtToken.ToString().Replace("Bearer ", "");
-				var isPosted = _commentsService.AddCommet(comments, token,id);
+				var isPosted = await _commentsService.AddComment(comments, token,id);
 				;
 				if (isPosted)
 				{
