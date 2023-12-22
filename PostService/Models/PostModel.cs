@@ -15,7 +15,6 @@ namespace Models.PostModels
 		public String postid { get; set; }
 		[StringLength(300)]
 		public string post { get; set; }
-		[StringLength(100)]
 		public DateTime DateTime { get; set; }
 	}
 

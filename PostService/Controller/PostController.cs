@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.PostModels;
 using PostServices_namespace;
@@ -14,7 +15,8 @@ namespace PostService_Namespace
 		{
 			_postService = postService;
 		}
-
+		[HttpPost("add/")]
+		[Authorize]
 		public ActionResult addPost([FromBody] PostsModel postsModel)
 		{
 			string jwtToken = HttpContext.Request.Headers["Authorization"];

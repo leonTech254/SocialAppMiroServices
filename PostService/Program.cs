@@ -29,15 +29,25 @@ builder.Services.AddScoped<PostServices>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddJwtBearer(options =>
 	{
+		var issuer = builder.Configuration["JwtOptions:Issuer"];
+		var audience = builder.Configuration["JwtOptions:Audience"];
+		var secretKey = builder.Configuration["JwtOptions:secrete_Key"];
+
+		if (string.IsNullOrEmpty(issuer) || string.IsNullOrEmpty(audience) || string.IsNullOrEmpty(secretKey))
+		{
+			// Log or handle the case where configuration values are missing or null
+			throw new ApplicationException("JWT configuration values are missing or null.");
+		}
+
 		options.TokenValidationParameters = new TokenValidationParameters
 		{
 			ValidateIssuer = true,
 			ValidateAudience = true,
 			ValidateLifetime = true,
 			ValidateIssuerSigningKey = true,
-			ValidIssuer = builder.Configuration["JwtOptions:Issuer"],
-			ValidAudience = builder.Configuration["JwtOptions:Audience"],
-			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtOptions:Secret_Key"]))
+			ValidIssuer = issuer,
+			ValidAudience = audience,
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
 		};
 	});
 
