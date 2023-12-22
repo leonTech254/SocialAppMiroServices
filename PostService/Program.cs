@@ -13,15 +13,18 @@ using Microsoft.AspNetCore.Identity;
 using Azure.Messaging.ServiceBus;
 using policyConfigurations_pnamespace;
 using JwTNameService;
+using EmailService.Repository;
+using PostServices_namespace;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddDbContext<DbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<DBConn>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //==============================REGISTERING SERVICES=============================================
 builder.Services.AddScoped<Jwt>();
+builder.Services.AddScoped<PostServices>();
 //=========================AUTHORIZATION=========================================================
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	.AddJwtBearer(options =>

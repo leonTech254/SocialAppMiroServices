@@ -10,12 +10,13 @@ namespace Models.PostModels
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 		[StringLength(100)]
+		public String userId {get; set;}
+		[StringLength(100)]
 		public String postid { get; set; }
 		[StringLength(300)]
 		public string post { get; set; }
 		[StringLength(100)]
 		public DateTime DateTime { get; set; }
-
 	}
 
 }
