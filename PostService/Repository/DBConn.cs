@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Models.PostModels;
+using Models_Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace EmailService.Repository
 
 		}
 		public DbSet<PostsModel> posts { get; set; }
+		public DbSet<Comment> comments { get; set; }
 	}
 }
