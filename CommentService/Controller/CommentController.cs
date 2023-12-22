@@ -25,11 +25,11 @@ namespace CommentController_nameSpace
 				;
 				if (isPosted)
 				{
-					return Ok("Added Post successfully");
+					return Ok("Comment Added  successfully");
 				}
 				else
 				{
-					return BadRequest("Problem Added the post Try again later");
+					return BadRequest("Problem Added the Comment Try again later");
 				}
 			}
 			else

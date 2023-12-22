@@ -10,6 +10,8 @@ using JwTNameService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models_Comments;
+using System.Net.Http.Headers;
+using Models.PostModels;
 
 namespace CommentSerives_namesapace
 {
@@ -30,30 +32,24 @@ namespace CommentSerives_namesapace
 		{
 			try
 			{
-				string apiUrl = $"https://localhost:7284/api/v1/post//get/postid/{postId}"; 
-				
-				string commentJson = JsonConvert.SerializeObject(comment);
+				string apiUrl = $"https://localhost:7284/api/v1/post/get/postid/{postId}";
 
-				var content = new StringContent(commentJson, Encoding.UTF8, "application/json");
+				HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
 
-				
-				/*_httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");*/
-
-				
-				HttpResponseMessage response = await _httpClient.PostAsync(apiUrl, content);
-
-			
 				if (response.IsSuccessStatusCode)
 				{
-					// If the comment was successfully added to the external API, you can also save it to your local database
+					string postJson = await response.Content.ReadAsStringAsync();
+
+					PostsModel post = JsonConvert.DeserializeObject<PostsModel>(postJson);
+					comment.CommentId=Guid.NewGuid().ToString().Substring(0,6).Replace("-","");
+					comment.postid = int.Parse(postId);
 					_dbConn.comments.Add(comment);
 					await _dbConn.SaveChangesAsync();
-
+					
 					return true;
 				}
 				else
 				{
-					// Handle the case where adding the comment to the external API failed
 					Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
 					return false;
 				}
@@ -64,6 +60,7 @@ namespace CommentSerives_namesapace
 				return false;
 			}
 		}
+
 
 		internal ActionResult GetAlComments()
 		{

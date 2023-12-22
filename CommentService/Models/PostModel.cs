@@ -1,24 +1,21 @@
-using Microsoft.Extensions.Hosting;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Models_Comments
+namespace Models.PostModels
 {
 
-	public class Comment
+	public class PostsModel
 	{
 		[Key]
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
-
 		[StringLength(100)]
-		public String CommentId { get; set; }
-
+		public String userId {get; set;}
+		[StringLength(100)]
+		public String postid { get; set; }
 		[StringLength(300)]
-		public string comment { get; set; }
-
-		[ForeignKey("posts")]
-		public int postid { get; set; }
-
+		public string post { get; set; }
+		public DateTime DateTime { get; set; }
 	}
+
 }
