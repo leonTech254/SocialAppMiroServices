@@ -13,7 +13,7 @@ namespace Models_Comments
 		public int Id { get; set; }
 
 		[StringLength(100)]
-		public int CommentId { get; set; }
+		public String CommentId { get; set; }
 
 		[StringLength(300)]
 		public string comment { get; set; }

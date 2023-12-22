@@ -40,6 +40,36 @@ namespace PostService_Namespace
 
 		}
 
+
+		[HttpGet("get/")]
+		public ActionResult getAllPost()
+		{
+			var response=_postService.GetAllPosts();
+			return Ok(response);
+		}
+
+		[HttpGet("get/postid/{id}")]
+		public ActionResult GetPostById(int id)
+		{
+			try
+			{
+				var response = _postService.GetPostById(id);
+
+				if (response == null)
+				{
+					return NotFound();
+				}
+
+				return Ok(response);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception or handle it as needed
+				return StatusCode(500, $"Internal Server Error: {ex.Message}");
+			}
+		}
 	}
-	 
+
+
 }
+	 

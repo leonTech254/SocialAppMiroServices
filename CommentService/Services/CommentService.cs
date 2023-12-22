@@ -19,25 +19,30 @@ namespace CommentSerives_namesapace
 	{
 		private readonly Jwt _jwt;
 		private readonly DBConn _dbConn;
-		private readonly HttpClient _httpClient;
+		private  HttpClient _httpClient;
 
-		public CommentsService(Jwt jwt, DBConn dBConn, HttpClient httpClient)
+		public CommentsService(Jwt jwt, DBConn dBConn)
 		{
 			_jwt = jwt;
 			_dbConn = dBConn;
-			_httpClient = httpClient;
+			_httpClient = new HttpClient();
 		}
 
-		internal async Task<bool> AddComment(Comment comment, string token, string postId)
+		public async Task<bool> AddComment(Comment comment, string token, string postId)
 		{
+			Console.WriteLine("hello wotdbds");
 			try
 			{
-				string apiUrl = $"https://localhost:7284/api/v1/post/get/postid/{postId}";
+
+				Console.WriteLine("hello try catch");
+				//string apiUrl=$"https://localhost:7284/api/v1/post/get/postid/{postId}";
+				string apiUrl=$"https://localhost:7284/api/v1/post/get/postid/{postId}";
 
 				HttpResponseMessage response = await _httpClient.GetAsync(apiUrl);
 
 				if (response.IsSuccessStatusCode)
 				{
+					Console.WriteLine("If Stauts True");
 					string postJson = await response.Content.ReadAsStringAsync();
 
 					PostsModel post = JsonConvert.DeserializeObject<PostsModel>(postJson);
@@ -45,11 +50,11 @@ namespace CommentSerives_namesapace
 					comment.postid = int.Parse(postId);
 					_dbConn.comments.Add(comment);
 					await _dbConn.SaveChangesAsync();
-					
 					return true;
 				}
 				else
 				{
+					Console.WriteLine("Write Jsfnf");
 					Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
 					return false;
 				}
@@ -62,7 +67,7 @@ namespace CommentSerives_namesapace
 		}
 
 
-		internal ActionResult GetAlComments()
+		public ActionResult GetAlComments()
 		{
 			var comments = _dbConn.comments;
 
